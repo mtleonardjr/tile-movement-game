@@ -175,13 +175,24 @@
         listenSelected();
 
         // up
-        ctx.fillRect(player.position[0] , player.position[1] - tileH, player.dimensions[0], player.dimensions[1]);
+        if (player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-1)]==1) {
+            ctx.fillRect(player.position[0] , player.position[1] - tileH, player.dimensions[0], player.dimensions[1]);
+        }
         // down
-        ctx.fillRect(player.position[0], player.position[1] + tileH, player.dimensions[0], player.dimensions[1]);
+        if (player.tileFrom[1]<(mapH-1) && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]+1)]==1) {
+            ctx.fillRect(player.position[0], player.position[1] + tileH, player.dimensions[0], player.dimensions[1]);
+        }
+        
         // left
-        ctx.fillRect(player.position[0] - tileW, player.position[1], player.dimensions[0], player.dimensions[1]);
+        if (player.tileFrom[0]>0 && gameMap[toIndex(player.tileFrom[0]-1, player.tileFrom[1])]==1) {
+            ctx.fillRect(player.position[0] - tileW, player.position[1], player.dimensions[0], player.dimensions[1]);
+        }
+        
         // right
-        ctx.fillRect(player.position[0] + tileW, player.position[1], player.dimensions[0], player.dimensions[1]);
+        if (player.tileFrom[0]<(mapW-1) && gameMap[toIndex(player.tileFrom[0]+1, player.tileFrom[1])]==1) {
+            ctx.fillRect(player.position[0] + tileW, player.position[1], player.dimensions[0], player.dimensions[1]);
+        }
+        
 
 	    
     }
@@ -206,32 +217,36 @@ const listenHandlerSelected = (e) => {
     if((e.x >= player.position[0]) && (e.x <= player.position[0] + tileW) && (e.y >= player.position[1]- tileH) && (e.y <= player.position[1]) ) {
         if(player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-1)]==1) { 
             player.tileTo[1]-= 1; 
+            selected = false;
         }
-        selected = false;
+        
     }
 
     // down
     if((e.x >= player.position[0]) && (e.x <= player.position[0] + tileW) && (e.y >= player.position[1] + tileH) && (e.y <= player.position[1] + 2*tileH) ) {
         if(player.tileFrom[1]<(mapH-1) && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]+1)]==1) { 
             player.tileTo[1]+= 1; 
+            selected = false;
         }
-        selected = false;
+        
     }
 
     // left
     if((e.x >= player.position[0]- tileW) && (e.x <= player.position[0]) && (e.y >= player.position[1] ) && (e.y <= player.position[1] + tileH) ) {
         if(player.tileFrom[0]>0 && gameMap[toIndex(player.tileFrom[0]-1, player.tileFrom[1])]==1) { 
             player.tileTo[0]-= 1; 
+            selected = false;
         }
-        selected = false;
+
     }
 
     // right
     if((e.x >= player.position[0]) && (e.x <= player.position[0] + 2*tileW) && (e.y >= player.position[1] ) && (e.y <= player.position[1] + tileH) ) {
         if(player.tileFrom[0]<(mapW-1) && gameMap[toIndex(player.tileFrom[0]+1, player.tileFrom[1])]==1) { 
             player.tileTo[0]+= 1; 
+            selected = false;
         }
-        selected = false;
+
     }
 
     //Set timemoved
