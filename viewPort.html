@@ -190,6 +190,19 @@ function drawGame()
 
 	ctx.fillStyle = "#ff0000";
 	ctx.fillText("FPS: " + framesLastSecond, 10, 20);
+	
+	// Extra Info
+    // ctx.fillText("frameCount: " + frameCount, 10, 50);
+    ctx.fillText("lastFrameTime: " + lastFrameTime, 10, 70);
+    ctx.fillText("currentSec: " + currentSecond, 10, 90);
+
+	// ctx.fillText("offset: " + viewport.offset[0] + ',' + viewport.offset[1], 10, 110);
+    ctx.fillText("player.tileFrom: " + player.tileFrom, 10, 130);
+	ctx.fillText("player.tileTo: " + player.tileTo, 10, 150);
+	ctx.fillText("player.timeMoved: " + player.timeMoved, 10, 170);
+	ctx.fillText("player.dimensions: " + player.dimensions, 10, 190);
+	ctx.fillText("player.position: " + player.position, 10, 210);
+	ctx.fillText("player.delayMove: " + player.delayMove, 10, 230);
 
 	lastFrameTime = currentFrameTime;
 	requestAnimationFrame(drawGame);
