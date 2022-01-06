@@ -110,6 +110,14 @@
         window.addEventListener("keyup", function(e) {
             if(e.keyCode>=37 && e.keyCode<=40) { keysDown[e.keyCode] = false; }
         });
+
+        // Test Key Listeners
+        window.addEventListener("keydown", function(e) {
+            if(e.keyCode==80) { keysDown[e.keyCode] = true; }
+        });
+        window.addEventListener("keyup", function(e) {
+            if(e.keyCode==80) { keysDown[e.keyCode] = false; }
+        });
     };
 
 
@@ -162,8 +170,7 @@
 	ctx.fillRect(player.position[0], player.position[1],
 		player.dimensions[0], player.dimensions[1]);
 
-	// ctx.fillStyle = "#ff0000";
-	// ctx.fillText("FPS: " + framesLastSecond, 10, 20);
+p
 
     //Custom movement controls
 	// ctx.fillText("Selected: " + selected, 10, 50);
@@ -178,6 +185,12 @@
         if (player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-1)]==1) {
             ctx.fillRect(player.position[0] , player.position[1] - tileH, player.dimensions[0], player.dimensions[1]);
         }
+
+        // up 2
+        if (player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-2)]==1) {
+            ctx.fillRect(player.position[0] , player.position[1] - tileH * 2, player.dimensions[0], player.dimensions[1]);
+        }
+
         // down
         if (player.tileFrom[1]<(mapH-1) && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]+1)]==1) {
             ctx.fillRect(player.position[0], player.position[1] + tileH, player.dimensions[0], player.dimensions[1]);
@@ -192,9 +205,12 @@
         if (player.tileFrom[0]<(mapW-1) && gameMap[toIndex(player.tileFrom[0]+1, player.tileFrom[1])]==1) {
             ctx.fillRect(player.position[0] + tileW, player.position[1], player.dimensions[0], player.dimensions[1]);
         }
-        
+    }
 
-	    
+    if (keysDown[80]) {
+        ctx.fillStyle = "#ff0000";
+	    ctx.fillText("Path Pressed: " + keysDown[80], 10, 20);
+        console.log("Path Pressed"); 
     }
 
     
